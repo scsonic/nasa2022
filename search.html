@@ -1,0 +1,63 @@
+<!--
+
+
+  curl 'https://customsearch.googleapis.com/customsearch/v1?q=pikachu&key=AIzaSyDCO8kG6jUcnQiBqEIezCIJ_td28yRJ5bI&cx=04ca12c156cf146e9&searchType=image' 
+
+
+note params:
+cx
+q
+searchType=image
+
+
+-->
+
+<html>
+  <head>
+    <title>Nasa2022 Team BUBU</title>
+  
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      function start() {
+        // Initializes the client with the API key and the Translate API.
+        gapi.client.init({
+          'apiKey': 'AIzaSyDCO8kG6jUcnQiBqEIezCIJ_td28yRJ5bI',
+          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/translate/v2/rest'],
+        }).then(function() {
+          // Executes an API request, and returns a Promise.
+          // The method name `language.translations.list` comes from the API discovery.
+          return gapi.client.language.translations.list({
+            q: 'pikachu',
+            source: 'en',
+            target: 'de',
+          });
+        }).then(function(response) {
+          console.log(response.result.data.translations[0].translatedText);
+        }, function(reason) {
+          console.log('Error: ' + reason.result.error.message);
+        });
+      };
+
+      // Loads the JavaScript client library and invokes `start` afterwards.
+      gapi.load('client', start);
+    </script>
+
+
+    <style>
+    </style>
+
+    <script>
+    </script>
+  </head>
+<body style="margin:0px">
+
+</body>
+
+<script>
+// draw the FPS
+;;;(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+</script>
+
+</html>
