@@ -18,40 +18,30 @@ searchType=image
   
     <script src="js/jquery-3.6.0.min.js"></script>
 
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script>
-      function start() {
-        // Initializes the client with the API key and the Translate API.
-        gapi.client.init({
-          'apiKey': 'AIzaSyDCO8kG6jUcnQiBqEIezCIJ_td28yRJ5bI',
-          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/translate/v2/rest'],
-        }).then(function() {
-          // Executes an API request, and returns a Promise.
-          // The method name `language.translations.list` comes from the API discovery.
-          return gapi.client.language.translations.list({
-            q: 'pikachu',
-            source: 'en',
-            target: 'de',
-          });
-        }).then(function(response) {
-          console.log(response.result.data.translations[0].translatedText);
-        }, function(reason) {
-          console.log('Error: ' + reason.result.error.message);
-        });
-      };
-
-      // Loads the JavaScript client library and invokes `start` afterwards.
-      gapi.load('client', start);
-    </script>
-
-
     <style>
+      #canvas {
+        width: 800px ;
+        height: 800px ;
+      }
     </style>
 
     <script>
+      var genUrl = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" ;
+      $(function(){
+        $("#loadImage").attr("src", genUrl) ;
+      }) ;
+
+      var onLoadImage = function(){
+        console.log("on load image!!") ;
+
+      }
     </script>
   </head>
 <body style="margin:0px">
+  <img id=loadImage onload="onLoadImage()" />
+
+  <canvas id="canvas"></canvas>
+
 
 </body>
 
