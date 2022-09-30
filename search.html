@@ -15,7 +15,6 @@ searchType=image
 <html>
   <head>
     <title>Nasa2022 Team BUBU</title>
-  
     <script src="js/jquery-3.6.0.min.js"></script>
 
     <style>
@@ -26,6 +25,31 @@ searchType=image
     </style>
 
     <script>
+
+      function google_image_search(text, callback) {
+        var url = "https://customsearch.googleapis.com/customsearch/v1?&key=AIzaSyDCO8kG6jUcnQiBqEIezCIJ_td28yRJ5bI&cx=04ca12c156cf146e9&searchType=image";
+        console.log("the url:", url) ;
+        
+        $.ajax({
+            url: url,
+            data: { "q": text}, 
+            dataType: 'json',
+            contentType: "application/json;charset=utf-8",
+            success: function(returnData){
+                var arr = [] ;
+                var itemlen = returnData.items.length
+                for ( var i = 0 ; i < itemlen ; i++){
+                  arr.push(returnData.items[i].link) ;
+                }
+                console.log(returnData);
+                console.log(arr) ;
+                callback(arr) ;
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert("search error, please try again, or contact me: scsonic@gmail.com");
+            }
+        });
+      }
       var genUrl = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" ;
       $(function(){
         $("#loadImage").attr("src", genUrl) ;
@@ -44,10 +68,4 @@ searchType=image
 
 
 </body>
-
-<script>
-// draw the FPS
-;;;(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-</script>
-
 </html>
