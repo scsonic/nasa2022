@@ -281,15 +281,48 @@ limitations under the License.
 
 <script>
 
+let style_arr = ["images/style1.jpg", "images/style2.jpg", "images/style3.png", "images/style4.jpg"] ;
+let test_image = ["images/duck.jpg", "images/pika.png", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg"] ;
+
+var style_img = document.getElementById('style-img') ;
+var content_img = document.getElementById('content-img') ;
+var btnStart = document.getElementById('style-button');
+
+var style_end_callback = function(){ } ;
+
 function done(){
 	console.log("process done!") ;
+	
+	if (style_end_callback != undefined ) {
+		style_end_callback() ;	
+	}
+	
     var img = document.createElement('img');
     var sourceCanvas = document.getElementById("stylized");
     var sourceImageData = sourceCanvas.toDataURL("image/png");
     img.src = sourceImageData;
     document.body.appendChild(img);
+}
 
-    loopGen() ;
+
+var styleImage = function(content_url, style_url, callback) {
+
+	if ( callback != undefined ) {
+		style_end_callback = callback ;
+	}
+	style_img.src = "" ;
+	style_img.onload = function(){
+		console.log("new style onloaded!") ;
+		btnStart.onclick() ;
+
+		content_img.src = "" ;
+		content_img.onload = function(){
+			btnStart.onclick() ;
+		}
+		content_img.src = content_url ;
+
+	} ;
+	style_img.src = style_url ;
 }
 
 var cnt = 10 ;
@@ -308,13 +341,16 @@ function loopGen(){
 }
 
 function test(){
-	var simg = document.getElementById('style-img') ;
-	simg.onload = function(){
-		console.log("new style onloaded!") ;
-		var btnStart = document.getElementById('style-button');
-		btnStart.onclick() ;
-	} ;
-	simg.src = 'images/pia20052-spitzer_wise20151003.png'
+
+	for ( var i = 0 ; i < style_arr.length ; i++){
+		for ( var j = 0 ; j < test_image.length ; j++){
+			styleImage(test_image[j], style_arr[i], function(){
+				console.log("done:" + style_arr[i] + "," + test_image[j]) ;
+			})
+			break ;
+		}
+		break ;
+	} 
 }
 
 </script>
