@@ -282,7 +282,7 @@ limitations under the License.
 <script>
 
 let style_arr = ["images/style1.jpg", "images/style2.jpg", "images/style3.png", "images/style4.jpg"] ;
-let test_image = ["images/duck.jpg", "images/pika.png", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg"] ;
+let test_image = ["images/duck.jpg", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg"] ;
 
 var style_img = document.getElementById('style-img') ;
 var content_img = document.getElementById('content-img') ;
@@ -310,14 +310,18 @@ var styleImage = function(content_url, style_url, callback) {
 	if ( callback != undefined ) {
 		style_end_callback = callback ;
 	}
+	style_img.onload = undefined ;
 	style_img.src = "" ;
 	style_img.onload = function(){
 		console.log("new style onloaded!") ;
-		btnStart.onclick() ;
-
+		
+		content_img.onload = undefined ;
 		content_img.src = "" ;
 		content_img.onload = function(){
-			btnStart.onclick() ;
+			setTimeout(function(){
+				btnStart.onclick() ;
+			},100) ;
+			
 		}
 		content_img.src = content_url ;
 
@@ -326,31 +330,37 @@ var styleImage = function(content_url, style_url, callback) {
 }
 
 var cnt = 10 ;
+var ii = 0 ;
+var jj = 0 ;
+
 function loopGen(){
-	var simg = document.getElementById('style-img') ;
-	var sourceCanvas = document.getElementById("stylized");
-	simg.src = sourceCanvas.toDataURL("image/png");
 
-	cnt = cnt - 1 ;
-	if ( cnt > 0 ) {
-		var triggerAgain = document.getElementById('style-button');
-		triggerAgain.onclick() ;
+	if ( ii < style_arr.length) {
+		if ( jj < test_image.length ) {
+			console.log("start:" + style_arr[ii] + "," + test_image[jj]) ;
+			styleImage(test_image[jj], style_arr[ii], function(){
+				setTimeout(function(){
+					loopGen() ;
+				}, 500) ;
+			})
+			jj ++ ;
+		}
+		else {
+			jj = 0 ;
+			ii ++ ;
+			loopGen() ;
+		}
 	}
-
-	console.log("gen once!!") ;
 }
+
+
 
 function test(){
 
-	for ( var i = 0 ; i < style_arr.length ; i++){
-		for ( var j = 0 ; j < test_image.length ; j++){
-			styleImage(test_image[j], style_arr[i], function(){
-				console.log("done:" + style_arr[i] + "," + test_image[j]) ;
-			})
-			break ;
-		}
-		break ;
-	} 
+	ii = 0 ;
+	jj = 0 ;
+	loopGen() ;
+
 }
 
 </script>
