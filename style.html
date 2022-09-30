@@ -282,7 +282,29 @@ limitations under the License.
 <script>
 
 function done(){
+	console.log("process done!") ;
+    var img = document.createElement('img');
+    var sourceCanvas = document.getElementById("stylized");
+    var sourceImageData = sourceCanvas.toDataURL("image/png");
+    img.src = sourceImageData;
+    document.body.appendChild(img);
 
+    loopGen() ;
+}
+
+var cnt = 10 ;
+function loopGen(){
+	var simg = document.getElementById('style-img') ;
+	var sourceCanvas = document.getElementById("stylized");
+	simg.src = sourceCanvas.toDataURL("image/png");
+
+	cnt = cnt - 1 ;
+	if ( cnt > 0 ) {
+		var triggerAgain = document.getElementById('style-button');
+		triggerAgain.onclick() ;
+	}
+
+	console.log("gen once!!") ;
 }
 
 function test(){
@@ -294,6 +316,7 @@ function test(){
 	} ;
 	simg.src = 'images/pia20052-spitzer_wise20151003.png'
 }
+
 </script>
 <script type="text/javascript">
   $(function () {

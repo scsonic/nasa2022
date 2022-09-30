@@ -308,6 +308,7 @@ var Main = function () {
         _this4.disableStylizeButtons();
         _this4.startStyling().finally(function () {
           _this4.enableStylizeButtons();
+          done() ;
         });
       };
       this.randomizeButton = document.getElementById('randomize');
