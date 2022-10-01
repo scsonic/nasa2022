@@ -7,8 +7,51 @@ $(function(){
 var bind_all = function(){
     $("#btn_start").click(function(){
         var search_text = $("#search_text").val() ;
-        console.log("start search!!" + search_text) ;
+
+        if ( search_text.length > 0 ) {
+            console.log("start search!!" + search_text) ; 
+            google_image_search(search_text, function(arr){
+                console.log(arr) ;
+                styleImage(arr[0], style_arr[0], function(){
+                    console.log("done1") ;
+                    styleImage(arr[0], style_arr[1], function(){
+                        console.log("done2") ;
+                    })
+                    styleImage(arr[0], style_arr[2], function(){
+                        console.log("done3") ;
+                    })
+                })
+            });
+        }
+        
     }) ;
+}
+
+function google_image_search(text, callback) {
+    var url = "https://customsearch.googleapis.com/customsearch/v1?&key=AIzaSyDCO8kG6jUcnQiBqEIezCIJ_td28yRJ5bI&cx=04ca12c156cf146e9&searchType=image";
+    console.log("the url:", url) ;
+
+    $.ajax({
+        url: url,
+        data: { "q": text}, 
+        dataType: 'json',
+        contentType: "application/json;charset=utf-8",
+        success: function(returnData){
+            var arr = [] ;
+            var itemlen = returnData.items.length
+            for ( var i = 0 ; i < itemlen ; i++){
+                // arr.push(returnData.items[i].link) ;
+                arr.push(returnData.items[i].image.thumbnailLink) ;
+            }
+            //console.log(returnData);
+            console.log(arr) ;
+
+            callback(arr) ;
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+            alert("search error, please try again, or contact me: scsonic@gmail.com");
+        }
+    });
 }
 
 
