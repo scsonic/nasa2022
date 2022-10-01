@@ -1,17 +1,5 @@
 <!DOCTYPE html>
-<!--
-Copyright 2018 Reiichiro Nakano All Rights Reserved.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-==============================================================================
--->
+
 <html lang="en">
 <head>
    
@@ -48,18 +36,11 @@ limitations under the License.
               <label for="content-img-size">Content image size</label>
               <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
               title="A bigger content image results in a more detailed output, but increases the processing time significantly."></i>
-              <input type="range" min="256" max="400" value="256" class="custom-range centered" id="content-img-size" >
+              <input type="range" min="256" max="512" value="512" class="custom-range centered" id="content-img-size" >
               <br>
               <select id="content-select" class="centered custom-select">
-                <option value="" disabled>Select content</option>
-                <option value="pic">Take a picture</option>
-                <option value="file">Select from file</option>
-                <option value="stata">stata</option>
-                <option value="diana">diana</option>
-                <option value="golden_gate">golden_gate</option>
-                <option value="beach">beach</option>
-                <option value="chicago" selected="selected">chicago</option>
-                <option value="statue_of_liberty">statue_of_liberty</option>
+                <option value="" disabled>Select Target</option>
+                <option value="file">Search Galexy by Image</option>
               </select>
           </div>
           <div class="col mx-5 my-4">
@@ -112,7 +93,10 @@ limitations under the License.
         </div>
       </div>
   </div>
-  <div class="tab-pane fade" id="combine" role="tabpanel" aria-labelledby="combine-tab">
+
+
+  <!-- do not modify here -->
+  <div class="tab-pane fade" id="combine" role="tabpanel" aria-labelledby="combine-tab" >
     <div class="container">
       <div class="row my-4">
         <div class="col mx-5 my-4">
@@ -373,7 +357,6 @@ function test(){
 	ii = 0 ;
 	jj = 0 ;
 	loopGen() ;
-
 }
 
 
