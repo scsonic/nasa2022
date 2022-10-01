@@ -314,7 +314,7 @@ var styleImage = function(content_url, style_url, callback) {
 	style_img.src = "" ;
 	style_img.onload = function(){
 		console.log("new style onloaded!") ;
-		
+
 		content_img.onload = undefined ;
 		content_img.src = "" ;
 		content_img.onload = function(){
@@ -349,6 +349,9 @@ function loopGen(){
 			jj = 0 ;
 			ii ++ ;
 			loopGen() ;
+			    var hr = document.createElement('hr');
+			    document.body.appendChild(hr);
+
 		}
 	}
 }
