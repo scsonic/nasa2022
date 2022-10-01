@@ -1,20 +1,28 @@
 <html>
   <head>
     <title>Nasa2022 Team BUBU</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <link rel="stylesheet" src="css/index.css" />
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
 
+
+    <!-- for style -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="dist/bundle.js"></script>
+
+
     <style>
       #input_form {
-        border: 3px solid green;
-        margin-left: 200px;
-        margin-right: 200px;
-        border-radius: 25px;
-        padding: 20px;
+        border: 3px solid white;
+        margin-left: 150px;
+        margin-right: 150px;
+        border-radius: 10px;
+        padding: 25px;
+
+        height: 800px ;
+        overflow-y: auto;
+        overflow-x: hidden;
         background-color: rgba(255,255,255, 0.2);
       }
     </style>
@@ -46,19 +54,6 @@
   
 </a-scene>
 
-
-  <div class="center" id="ddd">
-    
-
-
-
-   
-  </div>
-
-  <div class="glitchButton center" style="position:fixed; color: white;" >
-    <span class="btn btn-info" id="index_finger_status">222222222</span>
-  </div>
-
   <div style="position:fixed; top: 100px; left: 0px; width: 100%;">
      <div class="text-center" id="input_form" style="color: white;">
 
@@ -72,15 +67,245 @@
         <span> example1 here, example2 here, or example planet here: 1,2,3 </span>
       <p>
 
+      <div id="results">
+
+        <img src="images/duck.jpg" />
+        <img src="images/duck.jpg" />
+        <img src="images/duck.jpg" />
+        <img src="images/duck.jpg" />
+
+      </div>
+
+
     </div>
+
+
 
   </div>
 
   <div class="glitchButton" style="position:fixed;bottom:20px;right:20px; color: white;" >
     <span class="btn btn-info" id="index_finger_status">Nasa 2022 Team BUBU</span>
   </div>
-</body>
 
+
+<div id="hide_functions" style="display: none;">
+
+<input type="file" id="file-select" style="display: none" accept="image/x-png,image/gif,image/jpeg"/>
+<!-- As a heading -->
+<div class="jumbotron jumbotron-fluid py-4" style="text-align: center; background-color: #f5f5f5;">
+    <div class="container">
+      <h4></h1>
+    </div>
+  </div>
+<div class="">
+<div id="mobile-warning" hidden class="alert alert-warning" role="alert">
+  This site may have problems functioning on mobile devices. 
+  Don't worry, you can still read the description below!
+</div>
+<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="stylize-tab" data-toggle="tab" href="#stylize" role="tab" aria-controls="stylize" aria-selected="true">Stylize an image</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="stylize" role="tabpanel" aria-labelledby="stylize-tab">
+      <div class="container">
+        <div class="row my-4">
+          <div class="col mx-5 my-4">
+              <img id="content-img" class="centered" src="images/chicago.jpg" width=256 height=256></img>
+              <br>
+              <label for="content-img-size">Content image size</label>
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+              title="A bigger content image results in a more detailed output, but increases the processing time significantly."></i>
+              <input type="range" min="256" max="256" value="256" class="custom-range centered" id="content-img-size" >
+              <br>
+              <select id="content-select" class="centered custom-select">
+                <option value="" disabled>Select Target</option>
+                <option value="file">Search Galexy by Image</option>
+              </select>
+          </div>
+          <div class="col mx-5 my-4">
+              <img id="style-img" class="centered" crossorigin="anonymous" src="images/seaport.jpg" height=256></img>
+              <br>
+              <label for="style-img-size">Style image size</label>
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+              title='Changing the size of a style image usually affects the texture "seen" by the network.'></i>
+              <input id="style-img-square" type="checkbox" style="vertical-align: middle; float: right;"
+              data-toggle="tooltip" data-placement="top" 
+              title="Force image to square">
+              <input type="range" min="100" max="400" value="256" class="custom-range centered" id="style-img-size">
+              <br>
+              <select id="style-select" class="centered custom-select">
+                <option value="" disabled>Select a style</option>
+                <option value="file">Select from file</option>
+                <option value="random">Random image from wikiart.org</option>
+                <option value="udnie">udnie</option>
+                <option value="stripes">stripes</option>
+                <option value="bricks">bricks</option>
+                <option value="clouds">clouds</option>
+                <option value="towers">towers</option>
+                <option value="sketch">sketch</option>
+                <option value="seaport" selected="selected">seaport</option>
+                <option value="red_circles">red_circles</option>
+                <option value="zigzag">zigzag</option>
+              </select>
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-md-6 offset-md-3">
+            <canvas id="stylized" class="centered"></canvas>
+            <br>
+            <label for="stylized-img-ratio">Stylization strength</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="This parameter affects the stylization strength. The further to the right, the stronger the stylization. This is done via interpolation between the style vectors of the content and style images."></i>
+            <input type="range" min="0" max="100" value="100" class="custom-range centered" id="stylized-img-ratio">
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-md-5 offset-md-3">
+              <button disabled id="style-button" type="button" class="btn btn-primary btn-block">Loading stylization model. Please wait..</button>
+          </div>
+          <div class="col-md-1">
+              <button type="button" id="randomize" class="btn btn-light btn-block">
+                <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
+                title="Randomize parameters"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  <!-- do not modify here -->
+  <div class="tab-pane fade" id="combine" role="tabpanel" aria-labelledby="combine-tab" >
+    <div class="container">
+      <div class="row my-4">
+        <div class="col mx-5 my-4">
+            <img id="c-style-img-1" class="centered" crossorigin="anonymous" src="images/stripes.jpg" height=256></img>
+            <br>
+            <label for="c-style-img-1-size">Style A Size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="Changing the size of a style image usually affects the texture "seen" by the network."></i>
+            <input id="c-style-1-square" type="checkbox" style="vertical-align: middle; float: right;"
+            data-toggle="tooltip" data-placement="top" 
+            title="Force image to square">
+            <input type="range" min="100" max="400" value="256" class="custom-range centered" id="c-style-img-1-size">
+            <br>
+            <select id="c-style-1-select" class="centered custom-select">
+              <option value="" disabled>Select a style</option>
+              <option value="file">Select from file</option>
+              <option value="random">Random image from wikiart.org</option>
+              <option value="udnie">udnie</option>
+              <option value="stripes" selected="selected">stripes</option>
+            </select>
+        </div>
+        <div class="col mx-5 my-4">
+            <img id="c-style-img-2" class="centered" crossorigin="anonymous" src="images/bricks.jpg" height=256></img>
+            <br>
+            <label for="c-style-img-2-size">Style B Size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="Changing the size of a style image usually affects the texture"></i>
+            <input id="c-style-2-square" type="checkbox" style="vertical-align: middle; float: right;"
+            data-toggle="tooltip" data-placement="top" 
+            title="Force image to square">
+            <input type="range" min="100" max="400" value="256" class="custom-range centered" id="c-style-img-2-size">
+            <br>
+            <select id="c-style-2-select" class="centered custom-select">
+              <option value="" disabled>Select a style</option>
+              <option value="file">Select from file</option>
+              <option value="random">Random image from wikiart.org</option>
+              <option value="udnie">udnie</option>
+              <option value="stripes">stripes</option>
+              <option value="bricks" selected="selected">bricks</option>
+              <option value="clouds">clouds</option>
+              <option value="towers">towers</option>
+              <option value="sketch">sketch</option>
+              <option value="seaport">seaport</option>
+              <option value="red_circles">red_circles</option>
+              <option value="zigzag">zigzag</option>
+            </select>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <img id="c-content-img" class="centered" src="images/statue_of_liberty.jpg" height=256></img>
+            <br>
+            <label for="c-content-img-size">Content image size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="A bigger content image results in a more detailed output, but increases the processing time significantly."></i>
+            <input type="range" min="256" max="512" value="512" class="custom-range centered" id="c-content-img-size">
+            <br>
+            <select id="c-content-select" class="centered custom-select">
+              <option value="" disabled>Select content</option>
+              <option value="pic">Take a picture</option>
+              <option value="file">Select from file</option>
+              <option value="stata">stata</option>
+              <option value="diana">diana</option>
+              <option value="golden_gate">golden_gate</option>
+              <option value="beach">beach</option>
+              <option value="chicago">chicago</option>
+              <option value="statue_of_liberty" selected="selected">statue_of_liberty</option>
+            </select>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <canvas id="c-stylized" class="centered"></canvas>
+            <br>
+            <label for="c-stylized-img-ratio">Stylization Ratio</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="This parameter affects the strength of the two styles relative to each other. This is done via interpolation between the style vectors of the two style images."></i>
+            <input type="range" min="0" max="100" value="50" class="custom-range centered" id="c-stylized-img-ratio">
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-5 offset-md-3">
+            <button disabled id="combine-button" type="button" class="btn btn-primary btn-block">Loading stylization model. Please wait..</button>
+        </div>
+        <div class="col-md-1">
+            <button type="button" id="c-randomize" class="btn btn-light btn-block">
+              <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
+              title="Randomize parameters"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-3 offset-md-3">
+        <select disabled id="model-select-style" class="centered custom-select">
+          <option value="mobilenet" >[Fast] Distilled MobileNet style model (9.6MB)</option>
+          <option value="inception" selected="selected" >[High quality] Original Inceptionv3 style model (36.3MB)</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select disabled id="model-select-transformer" class="centered custom-select">
+          <option value="separable" >[Fast] Separable_conv2d transformer (2.4MB)</option>
+          <option value="original" selected="selected">[High quality] Original transformer model (7.9MB)</option>
+        </select>
+    </div>
+  </div>
+</div>
+
+<canvas id="hidden-canvas" style="display: none"></canvas>
+
+</div>
+
+</div>
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+  </div>
+</body>
 
 <!--
 <script>
@@ -88,8 +313,6 @@
 ;;;(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 </script>
 -->
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="js/main.js"></script>
 
