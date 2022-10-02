@@ -42,6 +42,5 @@ add --ssl for camera permissions
 ### WISE 
 https://www.nasa.gov/mission_pages/WISE/images/index.html
 
-
-### Art E-Book
-https://www.nasa.gov/pdf/703154main_earth_art-ebook.pdf
+### Style Transfer
+https://github.com/reiinakano/arbitrary-image-stylization-tfjs
