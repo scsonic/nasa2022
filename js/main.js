@@ -4,6 +4,35 @@ $(function(){
     bind_all() ;
 });
 
+var search_result_arr = [] ;
+var search_process_index = 0 ;
+
+
+var search_loop = function() {
+
+    if ( search_process_index < search_result_arr.length && search_process_index < 5 ) {
+        let arr = search_result_arr ;
+        styleImage2(arr[search_process_index], style_arr[0], function(){
+            //console.log("done1") ;
+            styleImage2(arr[search_process_index], style_arr[1], function(){
+                //console.log("done2") ;
+                styleImage2(arr[search_process_index], style_arr[2], function(){
+                    //console.log("done3") ;
+                    styleImage2(arr[search_process_index], style_arr[3], function(){
+                        //console.log("done4") ;
+                        search_process_index = search_process_index + 1 ;
+                        console.log("search loop again") ;
+                        search_loop() ;
+                    })
+                })
+            })
+        })
+    }
+    else {
+        console.log("END") ;
+    }
+}
+
 var bind_all = function(){
     $("#btn_start").click(function(){
         var search_text = $("#search_text").val() ;
@@ -11,20 +40,12 @@ var bind_all = function(){
         if ( search_text.length > 0 ) {
             console.log("start search!!" + search_text) ; 
             google_image_search(search_text, function(arr){
+                search_result_arr = arr ;
                 console.log(arr) ;
-                styleImage(arr[0], style_arr[0], function(){
-                    console.log("done1") ;
-                    styleImage(arr[1], style_arr[1], function(){
-                        console.log("done2") ;
-                        styleImage(arr[2], style_arr[2], function(){
-                            console.log("done3") ;
-                            styleImage(arr[3], style_arr[3], function(){
-                                console.log("done4") ;
-                            })
-                        })
-                    })
+                search_process_index = 0 ;
+                search_loop() ;
 
-                })
+                
             });
         }
         
@@ -58,7 +79,7 @@ function google_image_search(text, callback) {
     });
 }
 
-let style_arr = ["images/style2.jpg", "images/style3.png","images/style4.jpg","images/style5.jpg"] ;
+let style_arr = ["images/style2.jpg", "images/style3.png","images/style4.jpg","images/pbsf.jpg"] ;
 let test_image = ["images/duck.jpg", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg", "images/banana.jpg", 
 "images/car.jpg", "images/maple.jpg", "images/flower.jpg"] ;
 
@@ -70,21 +91,20 @@ var style_end_callback = function(){ } ;
 
 function done(){
     console.log("process done!") ;
-    
     if (style_end_callback != undefined ) {
         style_end_callback() ;  
     }
-    
+}
+
+function appendImg() {
     var img = document.createElement('img');
     var sourceCanvas = document.getElementById("stylized");
     var sourceImageData = sourceCanvas.toDataURL("image/png");
     img.src = sourceImageData;
 
-
     var results = document.getElementById("results");
     results.prepend(img);
 }
-
 
 var styleImage = function(content_url, style_url, callback) {
 
@@ -120,11 +140,8 @@ var styleImage2 = function(content_url, style_url, callback) {
         console.log("gen no1!") ;
         styleImage(sourceImageData, style_url, function(){
             console.log("gen no 2!") ;
-            styleImage(sourceCanvas.toDataURL("image/png"), style_url, function(){
-                console.log("gen no 3!") ;
-                callback() ;
-            }) ;
-
+            appendImg() ;
+            callback() ;
         }) ;
     })
 }
@@ -139,6 +156,7 @@ function loopGen(){
         if ( jj < test_image.length ) {
             console.log("start:" + style_arr[ii] + "," + test_image[jj]) ;
             styleImage2(test_image[jj], style_arr[ii], function(){
+                appendImg() ;
                 setTimeout(function(){
                     loopGen() ;
                 }, 500) ;
