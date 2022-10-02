@@ -14,12 +14,16 @@ var bind_all = function(){
                 console.log(arr) ;
                 styleImage(arr[0], style_arr[0], function(){
                     console.log("done1") ;
-                    styleImage(arr[0], style_arr[1], function(){
+                    styleImage(arr[1], style_arr[1], function(){
                         console.log("done2") ;
+                        styleImage(arr[2], style_arr[2], function(){
+                            console.log("done3") ;
+                            styleImage(arr[3], style_arr[2], function(){
+                                console.log("done4") ;
+                            })
+                        })
                     })
-                    styleImage(arr[0], style_arr[2], function(){
-                        console.log("done3") ;
-                    })
+
                 })
             });
         }
@@ -88,11 +92,13 @@ var styleImage = function(content_url, style_url, callback) {
         style_end_callback = callback ;
     }
     style_img.onload = undefined ;
+    style_img.crossOrigin="anonymous"; 
     style_img.src = "" ;
     style_img.onload = function(){
         console.log("new style onloaded!") ;
 
         content_img.onload = undefined ;
+        content_img.crossOrigin="anonymous"; 
         content_img.src = "" ;
         content_img.onload = function(){
             setTimeout(function(){
