@@ -18,7 +18,7 @@ var bind_all = function(){
                         console.log("done2") ;
                         styleImage(arr[2], style_arr[2], function(){
                             console.log("done3") ;
-                            styleImage(arr[3], style_arr[2], function(){
+                            styleImage(arr[3], style_arr[3], function(){
                                 console.log("done4") ;
                             })
                         })
@@ -58,9 +58,9 @@ function google_image_search(text, callback) {
     });
 }
 
-
-let style_arr = ["images/style1.jpg", "images/style2.jpg", "images/style3.png", "images/style4.jpg"] ;
-let test_image = ["images/duck.jpg", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg"] ;
+let style_arr = ["images/style2.jpg", "images/style3.png","images/style4.jpg","images/style5.jpg"] ;
+let test_image = ["images/duck.jpg", "images/webb.jpg", "images/puppy.jpg", "images/baby.jpg", "images/banana.jpg", 
+"images/car.jpg", "images/maple.jpg", "images/flower.jpg"] ;
 
 var style_img = document.getElementById('style-img') ;
 var content_img = document.getElementById('content-img') ;
@@ -82,7 +82,7 @@ function done(){
 
 
     var results = document.getElementById("results");
-    results.appendChild(img);
+    results.prepend(img);
 }
 
 
@@ -112,6 +112,23 @@ var styleImage = function(content_url, style_url, callback) {
     style_img.src = style_url ;
 }
 
+var styleImage2 = function(content_url, style_url, callback) {
+
+    styleImage(content_url, style_url, function(){
+        var sourceCanvas = document.getElementById("stylized");
+        var sourceImageData = sourceCanvas.toDataURL("image/png");
+        console.log("gen no1!") ;
+        styleImage(sourceImageData, style_url, function(){
+            console.log("gen no 2!") ;
+            styleImage(sourceCanvas.toDataURL("image/png"), style_url, function(){
+                console.log("gen no 3!") ;
+                callback() ;
+            }) ;
+
+        }) ;
+    })
+}
+
 var cnt = 10 ;
 var ii = 0 ;
 var jj = 0 ;
@@ -121,7 +138,7 @@ function loopGen(){
     if ( ii < style_arr.length) {
         if ( jj < test_image.length ) {
             console.log("start:" + style_arr[ii] + "," + test_image[jj]) ;
-            styleImage(test_image[jj], style_arr[ii], function(){
+            styleImage2(test_image[jj], style_arr[ii], function(){
                 setTimeout(function(){
                     loopGen() ;
                 }, 500) ;
@@ -143,4 +160,11 @@ function test(){
     ii = 0 ;
     jj = 0 ;
     loopGen() ;
+}
+
+function test2(){
+
+    styleImage2(test_image[0], style_arr[0], function(){
+        console.log("DONE") ;
+    }) ;
 }

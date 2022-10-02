@@ -57,25 +57,26 @@
   <div style="position:fixed; top: 100px; left: 0px; width: 100%;">
      <div class="text-center" id="input_form" style="color: white;">
 
-       <H3> Webb find your planet</H3>
-       <p> the James Webb Telescope is too powerful, NASA has find a lot of Earth-like planets in space, tell Webb what planet do you went, the Webb will always find your planet. Webb Promised! </p>
-
+      <img src="images/jwst.png" width=120 height=120 />
+       <H2> Webb Finderscope</H2>
+       <p> the James Webb Telescope is too powerful, tell Webb what galaxy you went, the Webb will always find the galaxy.</p> 
+       <H4> Webb Promised! </H4>
 
         <input type="text" id="search_text" style="color:black" />
         <span class="btn btn-normal" id="btn_start">Search</span>
-        <p> for example, you can search "duck" for search duck galxey, duck exoplanet, </p>
-        <span> example1 here, example2 here, or example planet here: 1,2,3 </span>
+        <p> for example, you can search "duck" for search duck galaxy, "banana" for banana galaxy.</p>
       <p>
 
       <div id="results">
-
+        <img src="images/ex9.png" />
+        <img src="images/ex8.png" />
+        <img src="images/ex11.png" />
+        <img src="images/ex16.png" />
+        <img src="images/ex17.png" />
+        <img src="images/ex18.png" />
+        <img src="images/ex19.png" />
       </div>
-
-
     </div>
-
-
-
   </div>
 
   <div class="glitchButton" style="position:fixed;bottom:20px;right:20px; color: white;" >
@@ -107,12 +108,12 @@
       <div class="container">
         <div class="row my-4">
           <div class="col mx-5 my-4">
-              <img id="content-img" class="centered" src="images/chicago.jpg" width=256 height=256></img>
+              <img id="content-img" class="centered" src="images/chicago.jpg" width=400 height=400></img>
               <br>
               <label for="content-img-size">Content image size</label>
               <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
               title="A bigger content image results in a more detailed output, but increases the processing time significantly."></i>
-              <input type="range" min="256" max="256" value="256" class="custom-range centered" id="content-img-size" >
+              <input type="range" min="256" max="400" value="400" class="custom-range centered" id="content-img-size" >
               <br>
               <select id="content-select" class="centered custom-select">
                 <option value="" disabled>Select Target</option>
@@ -120,7 +121,7 @@
               </select>
           </div>
           <div class="col mx-5 my-4">
-              <img id="style-img" class="centered" crossorigin="anonymous" src="images/seaport.jpg" height=256></img>
+              <img id="style-img" class="centered" crossorigin="anonymous" src="images/seaport.jpg" height=128></img>
               <br>
               <label for="style-img-size">Style image size</label>
               <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
@@ -128,7 +129,7 @@
               <input id="style-img-square" type="checkbox" style="vertical-align: middle; float: right;"
               data-toggle="tooltip" data-placement="top" 
               title="Force image to square">
-              <input type="range" min="100" max="400" value="256" class="custom-range centered" id="style-img-size">
+              <input type="range" min="100" max="400" value="128" class="custom-range centered" id="style-img-size">
               <br>
               <select id="style-select" class="centered custom-select">
                 <option value="" disabled>Select a style</option>
@@ -153,7 +154,7 @@
             <label for="stylized-img-ratio">Stylization strength</label>
             <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
             title="This parameter affects the stylization strength. The further to the right, the stronger the stylization. This is done via interpolation between the style vectors of the content and style images."></i>
-            <input type="range" min="0" max="100" value="100" class="custom-range centered" id="stylized-img-ratio">
+            <input type="range" min="0" max="100" value="50" class="custom-range centered" id="stylized-img-ratio">
           </div>
         </div>
         <div class="row my-4">
