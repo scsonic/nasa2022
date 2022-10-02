@@ -30,6 +30,12 @@ var search_loop = function() {
     }
     else {
         console.log("END") ;
+        var hr = document.createElement('hr');
+        var results = document.getElementById("results");
+        var p = document.createElement('p');
+        p.innerHTML = "Search END" ;
+        results.prepend(p);
+        results.prepend(hr);
     }
 }
 
